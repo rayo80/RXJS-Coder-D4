@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MiservicioService } from '../services/miservicio.service';
 import { MatTable } from '@angular/material/table';
 import { PersonaSchema } from '../services/persona.interface'
-import { filter, from, fromEvent, map, Observable, of } from 'rxjs';
+import { filter, from, fromEvent, map, Observable, of, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tablepersonas',
@@ -11,20 +11,26 @@ import { filter, from, fromEvent, map, Observable, of } from 'rxjs';
 })
 export class TablepersonasComponent implements OnInit {
   @ViewChild(MatTable) table: MatTable<PersonaSchema>;
-
+  panelOpenState = false;
   constructor(private miService:MiservicioService) { }
 
   displayedColumns: string[] = ['id', 'name', 'lastname', 'age', 'casado'];
   
   
-  source :Observable<any>;
-  personas : PersonaSchema[];
+  source: Observable<any>;
+  personas: PersonaSchema[];
+  supscripcion1: Subscription;
 
   ngOnInit(): void {
     this.source = this.miService.returnall();
+
     this.source
     .subscribe((val)=>this.personas = val)
+  
     this.myObs2=from(this.personas)
+
+    this.supscripcion1=this.source
+    .subscribe((val)=>this.personas = val)
   }
 
   myObs2= new Observable<PersonaSchema>();
@@ -35,7 +41,7 @@ export class TablepersonasComponent implements OnInit {
       map(val => val.name)
     )
     .subscribe(
-      val=>console.log(val)
+      val=>alert(val)
     )
   }
 
@@ -46,10 +52,14 @@ export class TablepersonasComponent implements OnInit {
       map(val => val.name)
     )
     .subscribe(
-      val=>console.log(val)
+      val=>alert(val)
     )
   }
 
+
+  ngOnDestroy(): void {
+    this.supscripcion1.unsubscribe();
+  }
 
   
 }

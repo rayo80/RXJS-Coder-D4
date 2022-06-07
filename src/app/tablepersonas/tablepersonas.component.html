@@ -36,7 +36,26 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 
-<button mat-raised-button (click)="filtrar1()" color="primary">Filtra</button>
+<div  class="container">
+  <mat-accordion>
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          CLCIK PARA ANALIZAR LOS OBSERVERS
+        </mat-panel-title>
+        <mat-panel-description>
+          Opciones de Filtrado
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <p><button mat-raised-button (click)="filtrar1()" color="primary">
+        CLICK PARA VER LOS MENORES DE 32
+      </button></p>
+      <p> <button mat-raised-button (click)="filtrar2()" color="primary">
+        CLICK PARA VER LOS MENORES DE 40
+      </button></p>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
 
 <div>
   {{source | async}}
