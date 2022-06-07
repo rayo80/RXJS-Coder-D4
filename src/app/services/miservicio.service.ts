@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { filter, Observable, of } from 'rxjs';
+import { PersonaSchema } from './persona.interface'
 
 @Injectable({
   providedIn: 'root'
@@ -45,7 +46,8 @@ export class MiservicioService {
     },
   ]
   constructor() { }
-  retornar():Observable<any>{
+  returnall():Observable<any>{
     return of(this.personaslist)
   }
+
 }

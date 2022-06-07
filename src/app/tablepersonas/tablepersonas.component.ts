@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MiservicioService } from '../services/miservicio.service';
 import { MatTable } from '@angular/material/table';
-import { PersonaSchema } from './persona.interface'
-import { filter, fromEvent, map, Observable, of } from 'rxjs';
+import { PersonaSchema } from '../services/persona.interface'
+import { filter, from, fromEvent, map, Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-tablepersonas',
@@ -18,27 +18,38 @@ export class TablepersonasComponent implements OnInit {
   
   
   source :Observable<any>;
-  personas=[];
+  personas : PersonaSchema[];
+
   ngOnInit(): void {
-    this.source = this.miService.retornar();
+    this.source = this.miService.returnall();
     this.source
     .subscribe((val)=>this.personas = val)
+    this.myObs2=from(this.personas)
   }
 
+  myObs2= new Observable<PersonaSchema>();
   filtrar1(){
-    /*esto no me funciona
-    this.source
+    this.myObs2
     .pipe(
-      filter(val => val.age<32)
+      filter(val => val.age<32),
+      map(val => val.name)
     )
     .subscribe(
       val=>console.log(val)
-    )*/
-      /*.pipe
-    (
-      filter((val)=>val.name!=='Juan'),
-      map((val)=>console.log(val.name))
-    )*/
+    )
   }
+
+  filtrar2(){
+    this.myObs2
+    .pipe(
+      filter(val => val.age<40),
+      map(val => val.name)
+    )
+    .subscribe(
+      val=>console.log(val)
+    )
+  }
+
+
   
 }
