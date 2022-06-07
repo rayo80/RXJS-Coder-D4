@@ -12,8 +12,8 @@ export class AsynpipeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.asyncPromise = this.conPromise('Promise');
-    this.asyncObservable = this.conObservable('Observable');
+    this.asyncPromise = this.conPromise('Valor de la promesa');
+    this.asyncObservable = this.conObservable('Valor del observable');
   }
 
   conPromise(value: string): Promise<string> {
