@@ -46,7 +46,7 @@ export class MiservicioService {
     },
   ]
   constructor() { }
-  returnall():Observable<any>{
+  returnlist():Observable<PersonaSchema[]>{
     return of(this.personaslist)
   }
 

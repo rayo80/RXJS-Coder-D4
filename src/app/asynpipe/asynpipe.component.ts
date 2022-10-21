@@ -8,12 +8,12 @@ import { delay, Observable, of } from 'rxjs';
 })
 export class AsynpipeComponent implements OnInit {
   asyncPromise: Promise<string>
-  asyncObservable: Observable<string>
+  asyncObservable$: Observable<string>
   constructor() { }
 
   ngOnInit(): void {
     this.asyncPromise = this.conPromise('Valor de la promesa');
-    this.asyncObservable = this.conObservable('Valor del observable');
+    this.asyncObservable$ = this.conObservable('Valor del observable');
   }
 
   conPromise(value: string): Promise<string> {
@@ -23,7 +23,7 @@ export class AsynpipeComponent implements OnInit {
   }
   
   conObservable(value: string): Observable<string> {
-    return of(value).pipe(delay(2000));
+    return of(value).pipe(delay(5000));
   }
 
 }
